@@ -20,7 +20,7 @@ node {
 }
 
 def buildAndPublishDotcmsImage(String version, String tagName = "") {
-    def image = docker.build("jorith88/dotcms:${version}", "--no-cache ${version}")
+    def image = docker.build("jorith88/dotcms:${version}", "--pull --no-cache ${version}")
     
     if (tagName != '') {
         image.push(tagName)
