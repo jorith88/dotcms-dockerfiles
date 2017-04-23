@@ -5,18 +5,22 @@ node {
     }
 
     stage ('Build dotCMS Docker images') {
-        def versions = versionsToBuild.split('\n')
-        
-        def i = 1
-        
-        for (version in versions) {
-           buildAndPublishDotcmsImage(version)
+        try {
+            def versions = versionsToBuild.split('\n')
             
-            if (i == versions.size()) {
-                buildAndPublishDotcmsImage(version, 'latest')
+            def i = 1
+            
+            for (version in versions) {
+            buildAndPublishDotcmsImage(version)
+                
+                if (i == versions.size()) {
+                    buildAndPublishDotcmsImage(version, 'latest')
+                }
+                
+                i++
             }
-            
-            i++
+        catch (error) {
+            echo error
         }
     }
 }
