@@ -22,13 +22,11 @@ node {
 }
 
 def buildAndPublishDotcmsImage(String version, String tagName = '') {
-    dir(version) {
-        def image = docker.build('jorith88/dotcms:' + version, '--no-cache .')
-        
-        if (tagName != '') {
-            image.push(tagName)
-        } else {
-            image.push()
-        }
+    def image = docker.build('jorith88/dotcms:' + version, '--no-cache ' + version)
+    
+    if (tagName != '') {
+        image.push(tagName)
+    } else {
+        image.push()
     }
 }
