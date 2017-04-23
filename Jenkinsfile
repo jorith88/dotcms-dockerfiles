@@ -1,16 +1,33 @@
 node {
 
-    checkout scm
-    def app
-
-    stage ('Build and publish dotCMS Docker image') {
-        buildAndPublishDotcmsImage('4.0.1')
+    stage ('Checkout') {
+        checkout scm
     }
 
-    // version string is used as directory name, and as docker image tag
-    def buildAndPublishDotcmsImage(String version) {
-        dir(version) {
-            def image = docker.build('dotcmstest:' + version, '--no-cache .')
+    stage ('Build dotCMS Docker images') {
+        def versions = versionsToBuild.split('\n')
+        
+        def i = 1
+        
+        for (version in versions) {
+           buildAndPublishDotcmsImage(version)
+            
+            if (i == versions.size()) {
+                buildAndPublishDotcmsImage(version, 'latest')
+            }
+            
+            i++
+        }
+    }
+}
+
+def buildAndPublishDotcmsImage(String version, String tagName = '') {
+    dir(version) {
+        def image = docker.build('jorith88/dotcms:' + version, '--no-cache .')
+        
+        if (tagName != '') {
+            image.push(tagName)
+        } else {
             image.push()
         }
     }
