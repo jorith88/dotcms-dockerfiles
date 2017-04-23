@@ -5,28 +5,22 @@ node {
     }
 
     stage ('Build dotCMS Docker images') {
-        try {
-            def versions = versionsToBuild.split('\n')
+        def versions = versionsToBuild.split("\n")
+        
+        for (i=0;i<versions.size();i++) {
+            def version = versions[i];
             
-            def i = 1
+            buildAndPublishDotcmsImage(version, "")
             
-            for (version in versions) {
-            buildAndPublishDotcmsImage(version)
-                
-                if (i == versions.size()) {
-                    buildAndPublishDotcmsImage(version, 'latest')
-                }
-                
-                i++
+            if (i == versions.size() - 1) {
+                buildAndPublishDotcmsImage(version, "latest")
             }
-        catch (error) {
-            echo error
         }
     }
 }
 
-def buildAndPublishDotcmsImage(String version, String tagName = '') {
-    def image = docker.build('jorith88/dotcms:' + version, '--no-cache ' + version)
+def buildAndPublishDotcmsImage(String version, String tagName = "") {
+    def image = docker.build("jorith88/dotcms:${version}", "--no-cache ${version}")
     
     if (tagName != '') {
         image.push(tagName)
