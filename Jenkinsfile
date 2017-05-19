@@ -17,5 +17,7 @@ node {
                 image.push('latest')
             }
         }
+
+        emailext body: 'Pushed new images to Docker Hub.', subject: 'DotCMS Docker images', to: '${buildReadyEmailAddress}'
     }
 }
