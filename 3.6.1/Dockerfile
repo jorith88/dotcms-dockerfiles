@@ -4,7 +4,7 @@ ENV DOTCMS_HOME /opt/dotcms
 ENV DOTCMS_VERSION 3.6.1
 ENV TOMCAT_VERSION 8.0.18
 
-RUN apk add --update curl && rm -rf /var/cache/apk/* \
+RUN apk add --update bash curl && rm -rf /var/cache/apk/* \
     && mkdir -p $DOTCMS_HOME \
     && curl -O https://dotcms.com/physical_downloads/release_builds/dotcms_$DOTCMS_VERSION.tar.gz \
     && tar xzf dotcms_$DOTCMS_VERSION.tar.gz -C $DOTCMS_HOME \
