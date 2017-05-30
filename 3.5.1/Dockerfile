@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine
+FROM anapsix/alpine-java:8_jdk
 
 ENV DOTCMS_HOME /opt/dotcms
 ENV DOTCMS_VERSION 3.5.1
