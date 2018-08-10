@@ -12,8 +12,8 @@ RUN apk add --update bash curl && rm -rf /var/cache/apk/* \
     && chmod +x $DOTCMS_HOME/bin/*.sh \
     && chmod +x $DOTCMS_HOME/dotserver/tomcat-$TOMCAT_VERSION/bin/*.sh
 
-ADD server.xml /opt/dotcms/dotserver/tomcat-8.5.24/conf/server.xml
-ADD log4j2.xml /opt/dotcms/dotserver/tomcat-8.5.24/webapps/ROOT/WEB-INF/log4j/log4j2.xml
+ADD server.xml /opt/dotcms/dotserver/tomcat-8.5.32/conf/server.xml
+ADD log4j2.xml /opt/dotcms/dotserver/tomcat-8.5.32/webapps/ROOT/WEB-INF/log4j/log4j2.xml
 
 EXPOSE 8080 8009 8000
 
