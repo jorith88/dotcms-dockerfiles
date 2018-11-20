@@ -1,7 +1,7 @@
 FROM anapsix/alpine-java:8_jdk
 
 ENV DOTCMS_HOME /opt/dotcms
-ENV DOTCMS_VERSION 5.0.1
+ENV DOTCMS_VERSION 5.0.2
 ENV TOMCAT_VERSION 8.5.32
 
 RUN apk add --update bash curl && rm -rf /var/cache/apk/* \
